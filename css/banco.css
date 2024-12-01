@@ -1,0 +1,82 @@
+/* Establece un fondo y un estilo básico de tipografía */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f6f6f6;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Contenedor principal que centra todo el contenido */
+.container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Título de la página */
+h1 {
+    font-size: 24px;
+    color: #0070ba;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Estilo del formulario */
+form {
+    margin-top: 20px;
+    text-align: left;
+}
+
+/* Estilo de los campos de formulario */
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+input:focus {
+    border-color: #0070ba;
+    outline: none;
+}
+
+/* Botón de pago con tarjeta */
+button[type="submit"] {
+    background-color: #0070ba;
+    color: white;
+    font-size: 16px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #005e8a;
+}
+
+/* Estilo de los mensajes de error y éxito */
+.alert {
+    color: red;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.success {
+    color: green;
+    font-size: 14px;
+    margin-top: 20px;
+}

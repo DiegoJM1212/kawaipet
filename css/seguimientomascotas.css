@@ -1,0 +1,118 @@
+/* estilos.css */
+
+/* Estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #3b2950;
+    padding: 20px;
+}
+
+/* Estilo del encabezado */
+h1 {
+    text-align: center;
+    padding: 20px;
+    background-color: #e93f76; /* Franja morada */
+    color: white;
+    border-radius: 10px;
+}
+
+/* Información de la mascota */
+.informacion-mascota {
+    background-color: white;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #3b2950;
+    border-radius: 5px;
+    width: 100%;
+}
+
+/* Estilo de la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #e93f76; /* Franja morada */
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Alternar fondo de filas */
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .informacion-mascota {
+        padding: 15px;
+    }
+
+    input {
+        padding: 8px;
+    }
+
+    table th, table td {
+        font-size: 14px;
+    }
+}
+.logo {
+    width: 80px;
+    height: 50px;
+    margin-right: 18px;
+    position: absolute;
+    left: 15%;
+    transform: translateX(-50%);
+    top: 25px;
+}
+/* Estilo del botón con imagen */
+.btn-regresar {
+    display: inline-block;        /* Bloque en línea para permitir tamaño */
+    background-image: url('https://i.imgur.com/nopEa8h.png'); /* Imagen como fondo */
+    background-size: contain;     /* Ajusta la imagen para que encaje */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center;  /* Centra la imagen dentro del botón */
+    width: 50px;                  /* Ancho del botón */
+    height: 50px;                 /* Alto del botón */
+    border: none;                 /* Sin bordes */
+    border-radius: 50%;           /* Botón circular */
+    cursor: pointer;              /* Cambia el cursor a una mano */
+    transition: transform 0.2s;   /* Transición suave al hacer hover */
+}
+
+/* Efecto hover */
+.btn-regresar:hover {
+    transform: scale(1.1); /* Aumenta ligeramente el tamaño al pasar el ratón */
+}

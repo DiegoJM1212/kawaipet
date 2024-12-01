@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login y Registro</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <header>    
+        <img src="https://i.imgur.com/9NkTv9N.jpg" alt="Logo de KawaiPet" class="logo">
+        <h1>KawaiPet - Login / Registro</h1>
+    </header>
+    
+    <div class="form-container">
+        <div id="message" style="display: none; color: red;"></div> <!-- Para mostrar mensajes -->
+
+        <!-- Formulario de Login -->
+        <form id="login-form" style="display: block;">
+            <h2>Iniciar Sesión</h2>
+            <label for="username">Usuario o Correo Electrónico:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Contraseña:</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password" required>
+                <button type="button" onclick="togglePasswordVisibility()">👁️</button>
+            </div>
+
+            <button type="submit" onclick="handleLogin(event)">Iniciar Sesión</button>
+            <p>¿Olvidaste tu contraseña? <a href="/recuperarpass.html">Recupérala aquí</a></p>
+            <p>¿No tienes una cuenta? <a href="#" id="show-register">Regístrate aquí</a></p>
+        </form>
+
+        <!-- Formulario de Registro -->
+        <form id="register-form" style="display: none;" action="/usuarios/registro" method="POST" onsubmit="return handleRegister(event)">
+            <h2>Registro</h2>
+            <label for="reg-name">Nombre:</label>
+            <input type="text" id="reg-name" name="nombre" required>
+
+            <label for="reg-username">Nombre de Usuario:</label>
+            <input type="text" id="reg-username" name="username" required>
+
+            <label for="reg-email">Correo Electrónico:</label>
+            <input type="email" id="reg-email" name="email" required>
+
+            <label for="reg-telefono">Teléfono:</label>
+            <input type="text" id="reg-telefono" name="telefono" required>
+
+            <label for="reg-birthday">Fecha de Nacimiento:</label>
+            <input type="date" id="reg-birthday" name="birthday" required>
+
+            <label for="reg-cedula">Cédula:</label>
+            <div class="cedula-container">
+                <input type="text" id="reg-cedula" name="cedula" required>
+                <button type="button" onclick="fetchDatosRegistroCivil()">Comprobar Cédula</button>
+            </div>
+
+            <label for="reg-password">Contraseña:</label>
+            <input type="password" id="reg-password" name="password" required>
+
+            <!-- Preguntas de Seguridad -->
+            <label for="question1">Pregunta de Seguridad 1:</label>
+            <input type="text" value="¿Cuál es el nombre de tu primera mascota?" readonly>
+            <input type="text" id="answer1" name="answer1" required>
+
+            <label for="question2">Pregunta de Seguridad 2:</label>
+            <input type="text" value="¿Cuál es el nombre de tu ciudad natal?" readonly>
+            <input type="text" id="answer2" name="answer2" required>
+
+            <label for="question3">Pregunta de Seguridad 3:</label>
+            <input type="text" value="¿Cuál es tu color favorito?" readonly>
+            <input type="text" id="answer3" name="answer3" required>
+
+            <button type="submit">Registrarse</button>
+            <p>¿Ya tienes una cuenta? <a href="#" id="show-login">Inicia Sesión aquí</a></p>
+        </form>
+
+        <!-- Formulario de Verificación de Dos Pasos -->
+        <form id="two-factor-form" style="display: none;" action="/usuarios/verificar" method="POST" onsubmit="return handleTwoFactor(event)">
+            <h2>Verificación en Dos Pasos</h2>
+            <label for="verification-code">Código de Verificación:</label>
+            <input type="text" id="verification-code" name="verificationCode" required=""/>
+            <button type="submit">Verificar</button>
+            <p>No recibiste el código? <a href="#">Reenviar Código</a></p>
+        </form>
+
+    </div>
+
+    <footer>
+        <p>© 2024 KawaiPet. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Registra el Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('Service Worker registrado con éxito:', registration);
+                    })
+                    .catch((error) => {
+                        console.log('Error al registrar el Service Worker:', error);
+                    });
+            });
+        }
+
+        document.getElementById('show-register').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('register-form').style.display = 'block';
+            document.getElementById('message').style.display = 'none';
+        });
+
+        document.getElementById('show-login').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('register-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('message').style.display = 'none';
+        });
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            try {
+                const response = await fetch('/usuarios/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Error en las credenciales');
+                }
+
+                const data = await response.json();
+                
+                // Verifica si es necesario el paso de verificación en dos pasos
+                if (data.twoFactorRequired) {
+                    document.getElementById('login-form').style.display = 'none';
+                    document.getElementById('two-factor-form').style.display = 'block';
+                } else {
+                    window.location.href = '/inicio.html';
+                }
+            } catch (error) {
+                document.getElementById('message').innerText = error.message;
+                document.getElementById('message').style.display = 'block';
+            }
+        }
+
+        async function handleRegister(event) {
+            event.preventDefault();
+            const nombre = document.getElementById('reg-name').value;
+            const username = document.getElementById('reg-username').value;
+            const email = document.getElementById('reg-email').value;
+            const telefono = document.getElementById('reg-telefono').value;
+            const birthday = document.getElementById('reg-birthday').value;
+            const password = document.getElementById('reg-password').value;
+            const answer1 = document.getElementById('answer1').value;
+            const answer2 = document.getElementById('answer2').value;
+            const answer3 = document.getElementById('answer3').value;
+            const cedula = document.getElementById('reg-cedula').value;
+
+            try {
+                const response = await fetch('/usuarios/registro', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        nombre, username, email, telefono, birthday, password, answer1, answer2, answer3, cedula
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error al registrar los datos');
+                }
+                
+                const data = await response.json();
+                alert('Usuario registrado con éxito');
+                window.location.href = '/login.html';
+            } catch (error) {
+                document.getElementById('message').innerText = error.message;
+                document.getElementById('message').style.display = 'block';
+            }
+        }
+
+        async function fetchDatosRegistroCivil() {
+            const cedulaInput = document.getElementById('reg-cedula');
+            const cedula = cedulaInput.value.trim();
+
+            if (cedula.length === 0) {
+                alert("Por favor, ingresa una cédula.");
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/registrocivil/registro-civil/${cedula}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    
+                    document.getElementById('message').innerText = 'Cédula verificada correctamente.';
+                    document.getElementById('message').style.display = 'block';
+                } else {
+                    document.getElementById('message').innerText = 'Cédula no válida o no encontrada.';
+                    document.getElementById('message').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error al verificar la cédula:', error);
+                document.getElementById('message').innerText = 'Hubo un error al verificar la cédula.';
+                document.getElementById('message').style.display = 'block';
+            }
+        }
+
+        async function handleTwoFactor(event) {
+            event.preventDefault();
+            const verificationCode = document.getElementById('verification-code').value;
+
+            try {
+                const response = await fetch('/usuarios/verificar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ verificationCode })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Código de verificación incorrecto');
+                }
+
+                window.location.href = '/inicio.html';
+            } catch (error) {
+                document.getElementById('message').innerText = error.message;
+                document.getElementById('message').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

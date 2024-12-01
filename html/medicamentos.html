@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Medicamentos</title>
+    <link rel="stylesheet" href="/css/medicamentos.css"> <!-- Asegúrate de que la ruta sea correcta -->
+</head>
+<body>
+    <header>
+        <img src="https://i.imgur.com/9NkTv9N.jpg" alt="Logo de KawaiPet" class="logo">
+        <h1>Medicamentos</h1> <!-- Título de la página -->
+        <div class="buscador">
+            <input type="text" placeholder="Buscar productos...">
+            <button>Buscar</button>
+        </div>
+    </header>
+
+    <a href="productos.html" class="btn-regresar">Regresar a Tienda <i class="fas fa-arrow-left"></i></a> <!-- Enlace para regresar -->
+
+    <section>
+        <h3>Medicamentos</h3> <!-- Título de la sección -->
+        <div class="productos">
+            <!-- Ejemplo de productos dinámicos -->
+            <div class="producto">
+                <img src="https://i.imgur.com/FyHC0c4.png" alt="Producto 1">
+                <h4>Advocate Gatos</h4>
+                <p>Precio: 5000 CRC</p>
+                <p>Tratamiento contra pulgas, gusano del corazón y lombrices intestinales</p>
+                <button class="comprar-btn" data-id="1">Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/S6hGSzG.png" alt="Producto 2">
+                <h4>Naxpet</h4>
+                <p>Precio: 6000 CRC</p>
+                <p>Analgésico y antiinflamatorio</p>
+                <button class="comprar-btn" data-id="2">Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/quCn1aH.png" alt="Producto 3">
+                <h4>NEXGARD</h4>
+                <p>Precio: 7000 CRC</p>
+                <p>Tabletas Masticables Para Pulgas Y Garrapatas en Perros</p>
+                <button class="comprar-btn" data-id="3">Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/qzbYrpP.png" alt="Producto 4">
+                <h4>Pet Pectillin</h4>
+                <p>Precio: 8000 CRC</p>
+                <p>Tabletas Masticables Para Pulgas Y Garrapatas en Perros</p>
+                <button class="comprar-btn" data-id="4">Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/2s67Kfy.png" alt="Producto 5">
+                <h4>Respir Avianvet</h4>
+                <p>Precio: 9000 CRC</p>
+                <p>Suplemento para apoyar al sistema respiratorio de aves</p>
+                <button class="comprar-btn" data-id="5">Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/wen4TaM.png" alt="Producto 6">
+                <h4>Viyo</h4>
+                <p>Precio: 10000 CRC</p>
+                <p>Defensas naturales para gato</p>
+                <button class="comprar-btn" data-id="6">Comprar</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; Kawai Pet</p>
+    </footer>
+
+    <script>
+        // Función para manejar la compra de un medicamento
+        const botonesComprar = document.querySelectorAll('.comprar-btn');
+
+        botonesComprar.forEach(boton => {
+            boton.addEventListener('click', async () => {
+                const productoId = boton.getAttribute('data-id');
+                const productoNombre = boton.getAttribute('data-nombre');
+                const productoPrecio = boton.getAttribute('data-precio');
+
+                // Crear la interfaz para seleccionar el método de pago
+                const metodoPagoContainer = document.createElement('div');
+                metodoPagoContainer.innerHTML = `
+                    <h4>Seleccione el método de pago</h4>
+                    <select id="metodo_pago_${productoId}">
+                        <option value="tarjeta">Tarjeta de Crédito</option>
+                        <option value="paypal">PayPal</option>
+                    </select>
+                    <button class="confirmar-pago-btn">Confirmar Pago</button>
+                `;
+                boton.parentNode.appendChild(metodoPagoContainer);
+
+                const confirmarPagoBtn = metodoPagoContainer.querySelector('.confirmar-pago-btn');
+                confirmarPagoBtn.addEventListener('click', async () => {
+                    const metodoPago = document.getElementById(`metodo_pago_${productoId}`).value;
+
+                    // Enviar la solicitud POST al backend para procesar el pago
+                    const response = await fetch('/procesar-pago', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            medicamentoId: productoId,  // 'medicamentoId' en el cuerpo
+                            metodo_pago: metodoPago
+                        })
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        alert('Pago procesado con éxito: ' + result.message);
+                        // Redirigir o actualizar la página según sea necesario
+                    } else {
+                        alert('Error al procesar el pago.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

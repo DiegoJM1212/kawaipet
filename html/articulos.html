@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/articulos.css">
+        <title>Recursos Educativos</title>
+</head>
+<body>
+    <header>
+        <img src="https://i.imgur.com/9NkTv9N.jpg" alt="Logo de KawaiPet" class="logo">
+
+        <h1>Articulos</h1>
+    </header>
+
+    <!-- Botón para regresar al inicio -->
+    <a href="inicio.html" class="btn-regresar">Regresar al Inicio
+        <i class="fas fa-arrow-left"></i>
+
+    </a>
+
+    <section class="categorias">
+        <!-- Categoría: Salud -->
+        <div class="categoria">
+            <h2>Salud</h2>
+            <img src="https://i.imgur.com/4tL3oYS.png" alt="Imagen de Salud" class="imagen-categoria">
+            <div class="articulos">
+                <a href="https://www.hillspet.co.cr/dog-care/healthcare/digestive-gastrointestinal-problems-in-dogs" target="_blank">Trastornos digestivos en perros</a>
+                <a href="https://www.hillspet.co.cr/dog-care/healthcare/dog-skin-conditions-allergic-dermatitis" target="_blank">Alergias cutáneas</a>
+                <a href="https://www.hillspet.co.cr/dog-care/healthcare/dog-weight-management" target="_blank">¿Tu perro está en forma?</a>
+            </div>
+        </div>
+
+        <!-- Categoría: Nutrición -->
+        <div class="categoria">
+            <h2>Nutrición</h2>
+            <img src="https://i.imgur.com/sDuodZ0.png" alt="Imagen de Nutrición" class="imagen-categoria">
+            <div class="articulos">
+                <a href="https://www.hillspet.co.cr/pet-care/nutrition-feeding/benefits-of-corn-in-pet-foods" target="_blank">¿Es malo el maíz para las mascotas ?</a>
+                <a href="https://www.hillspet.co.cr/dog-care/nutrition-feeding/how-to-transition-my-dogs-food" target="_blank">Determina la porción adecuada</a>
+                <a href="https://www.hillspet.co.cr/pet-care/nutrition-feeding/human-food-treat-translator" target="_blank">Lo que la comida para humano provoca en tu mascota</a>
+            </div>
+        </div>
+
+        <!-- Categoría: Enfermedades Comunes -->
+        <div class="categoria">
+            <h2>Enfermedades Comunes</h2>
+            <img src="https://i.imgur.com/vdFzdIa.png" alt="Imagen de Enfermedades Comunes" class="imagen-categoria">
+            <div class="articulos">
+                <a href="https://purina.com.mx/purina/perros/principales-enfermedades" target="_blank">Las principales enfermedades de perros y sus síntomas</a>
+                <a href="https://cr.virbac.com/enfermedades/otitis-en-perros-y-gatos-5" target="_blank">Enfermedades parasitarias de las mascotas</a>
+                <a href="https://www.clinicaveterinariazarpa.com/salud-mascotas/enfermedades-comunes-gatos-sintomas/" target="_blank">Enfermedades comunes en gatos y cómo detectarlas</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Recursos Educativos</p>
+    </footer>
+</body>
+</html>
+<script>
+    function registrarAuditoria() {
+        fetch('/registrar-auditoria', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                accion: 'Acceso a artículo',
+                pagina: window.location.href  // Para registrar la URL actual, si se desea
+            })
+        })
+        .then(response => response.json())
+        .then(data => console.log('Auditoría registrada:', data))
+        .catch(error => console.error('Error al registrar auditoría:', error));
+    }
+    </script>

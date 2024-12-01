@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservación Hotel de Mascotas</title>
+    <link rel="stylesheet" href="/css/hotelreservas.css">
+</head>
+<body>
+    <header>
+        <img src="https://i.imgur.com/9NkTv9N.jpg" alt="Logo de KawaiPet" class="logo">
+        <h1>Hotel de Mascotas</h1>
+    </header>
+
+    <!-- Botón para regresar al inicio -->
+    <a href="inicio.html" class="btn-regresar">
+        <i class="fas fa-arrow-left"></i> Regresar al Inicio
+    </a>
+
+    <section class="form-container">
+        <h2>Información de la Reservación</h2>
+        <form id="reservaForm">
+            <!-- Información del propietario -->
+            <label for="nombre_propietario">Nombre del Propietario:</label>
+            <input type="text" id="nombre_propietario" name="nombre_propietario" required>
+
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" required>
+
+            <!-- Información de la mascota -->
+            <label for="nombre_mascota">Nombre de la Mascota:</label>
+            <input type="text" id="nombre_mascota" name="nombre_mascota" required>
+
+            <label for="tipo_mascota">Tipo de Mascota:</label>
+            <select id="tipo_mascota" name="tipo_mascota" required>
+                <option value="perro">Perro</option>
+                <option value="gato">Gato</option>
+                <option value="otro">Otro (especificar)</option>
+            </select>
+
+            <!-- Fechas -->
+            <label for="fecha_entrada">Fecha de Entrada:</label>
+            <input type="date" id="fecha_entrada" name="fecha_entrada" required>
+
+            <label for="fecha_salida">Fecha de Salida:</label>
+            <input type="date" id="fecha_salida" name="fecha_salida" required>
+
+            <!-- Comentarios -->
+            <label for="comentarios">Comentarios:</label>
+            <textarea id="comentarios" name="comentarios"></textarea>
+
+            <!-- Preferencia de alojamiento -->
+            <label for="preferencia_alojamiento">Preferencia de Alojamiento:</label>
+            <select id="preferencia_alojamiento" name="preferencia_alojamiento" required>
+                <option value="espacio_casita">Espacio en Casita</option>
+                <option value="area_juego">Área de Juego</option>
+                <option value="interaccion_diaria">Interacción Diaria con el Personal</option>
+            </select>
+
+            <!-- Método de pago -->
+            <label for="metodo_pago">Método de Pago:</label>
+            <select id="metodo_pago" name="metodo_pago" required>
+                <option value="tarjeta">Tarjeta</option>
+                <option value="paypal">PayPal</option>
+            </select>
+
+            <!-- Comprobar disponibilidad -->
+            <button type="button" id="checkAvailability">Comprobar Disponibilidad</button>
+            <p id="availabilityMessage" style="color: red;"></p>
+
+            <!-- Botón de confirmación siempre visible -->
+            <button type="submit">Confirmar Reserva</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2024 Veterinaria Kawai Pet</p>
+    </footer>
+
+    <script>
+        // Función para comprobar la disponibilidad
+        document.getElementById('checkAvailability').addEventListener('click', async () => {
+            const fechaEntrada = document.getElementById('fecha_entrada').value;
+            const fechaSalida = document.getElementById('fecha_salida').value;
+
+            if (!fechaEntrada || !fechaSalida) {
+                document.getElementById('availabilityMessage').innerText = 'Por favor, selecciona las fechas de entrada y salida.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/reservas/comprobar-disponibilidad', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ fecha_entrada: fechaEntrada, fecha_salida: fechaSalida })
+                });
+
+                const data = await response.json();
+
+                if (data.available) {
+                    document.getElementById('availabilityMessage').innerText = 'Las fechas están disponibles.';
+                } else {
+                    document.getElementById('availabilityMessage').innerText = 'Las fechas no están disponibles. Por favor, selecciona otras.';
+                }
+            } catch (error) {
+                console.error('Error al comprobar disponibilidad:', error);
+                document.getElementById('availabilityMessage').innerText = 'Error al comprobar disponibilidad.';
+            }
+        });
+
+        // Redirigir al pago dependiendo del método seleccionado
+        document.getElementById('reservaForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const metodoPago = document.getElementById('metodo_pago').value;
+
+            if (metodoPago === 'tarjeta') {
+                window.location.href = '/banco'; // Página de pago con tarjeta
+    } else if (metodoPago === 'paypal') {
+        window.location.href = '/paypal'; // Página de pago con PayPal
+            }
+        });
+    </script>
+</body>
+</html>

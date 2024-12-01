@@ -1,0 +1,188 @@
+.logo {
+    width: 80px;
+    height: 50px;
+    margin-right: 18px;
+    position: absolute;
+    left: 4%;
+    transform: translateX(-50%);
+    top: 15px;
+}
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #3b2950;
+    margin: 20px;
+}
+
+/* Header Styles */
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #e93f76; /* Color de fondo */
+    border-radius: 10px;
+}
+
+h1 {
+    font-size: 2em;
+    color: #ffffff;
+}
+
+/* Buscador */
+.buscador {
+    margin-top: 15px;
+}
+
+.buscador input[type="text"] {
+    padding: 10px;
+    width: 100%;
+    max-width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.buscador button {
+    padding: 10px 15px;
+    background-color: #3b2950;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buscador button:hover {
+    background-color: #555;
+}
+
+/* Section and Category Titles */
+section {
+    margin-top: 20px;
+}
+
+h3 {
+    font-size: 1.5em;
+    color: #ffffff;
+    border-bottom: 2px solid #e93f76;
+    padding-bottom: 5px;
+}
+
+/* Product Container */
+.productos {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.producto {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(241, 153, 153, 0.1);
+    width: calc(33.333% - 20px); /* Tres productos por fila */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.producto img {
+    max-width: 40%; /* Tamaño de imagen al 50% */
+    height: auto;
+    border-radius: 5px;
+}
+
+.producto h4 {
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+.producto p {
+    font-size: 0.9em;
+    color: #e93f76;
+}
+
+.producto button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #e93f76; /* Color de fondo del botón */
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.producto button:hover {
+    background-color: #e72208; /* Color del botón al pasar el ratón */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .producto {
+        width: calc(50% - 20px); /* Dos productos por fila */
+    }
+
+    .buscador input[type="text"] {
+        width: 100%; /* Buscador a 100% en pantallas más pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .producto {
+        width: 100%; /* Un producto por fila */
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    h3 {
+        font-size: 1.3em;
+    }
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #e93f76; /* Color morado */
+    border-radius: 10px;
+    margin-top: 40px; /* Espacio entre el contenido y el footer */
+    color: #fff; /* Color del texto */
+    font-size: 1em;
+}
+
+footer p {
+    margin: 0; /* Eliminar el margen para el párrafo */
+}
+.logo {
+    width: 80px;
+    height: 50px;
+    margin-right: 18px;
+    position: absolute;
+    left: 15%;
+    transform: translateX(-50%);
+    top: 30px;
+}
+/* Estilo del botón con imagen */
+.btn-regresar {
+    display: inline-block;        /* Bloque en línea para permitir tamaño */
+    background-image: url('https://i.imgur.com/nopEa8h.png'); /* Imagen como fondo */
+    background-size: contain;     /* Ajusta la imagen para que encaje */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center;  /* Centra la imagen dentro del botón */
+    width: 50px;                  /* Ancho del botón */
+    height: 50px;                 /* Alto del botón */
+    border: none;                 /* Sin bordes */
+    border-radius: 50%;           /* Botón circular */
+    cursor: pointer;              /* Cambia el cursor a una mano */
+    transition: transform 0.2s;   /* Transición suave al hacer hover */
+}
+
+/* Efecto hover */
+.btn-regresar:hover {
+    transform: scale(1.1); /* Aumenta ligeramente el tamaño al pasar el ratón */
+}

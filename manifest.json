@@ -1,0 +1,22 @@
+{
+  "name": "KawaiPet - Tu App Veterinaria",
+  "short_name": "KawaiPet",
+  "start_url": "/html/onboarding.html", 
+  "display": "standalone",
+  "theme_color": "#e93f76",
+  "background_color": "#3b2950",
+  "description": "KawaiPet es tu aplicación integral para veterinarias, estética, reservaciones de hotel para mascotas y más. ¡Descubre cómo cuidar mejor a tus mascotas!",
+  "id": "com.kawaipet.app",
+  "icons": [
+    {
+      "src": "/icons/lo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/go.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

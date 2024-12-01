@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio</title>
+    <link rel="stylesheet" href="/css/inicio.css"> <!-- Enlace al archivo CSS externo -->
+</head>
+<body>
+
+    <header>
+        <img src="https://i.imgur.com/9NkTv9N.jpg" alt="Logo de KawaiPet" class="logo">
+
+        <a href="login.html" class="nav-icon login"></a>
+        <a href="mascotasapi.html" class="nav-icon adopciones"></a>
+        
+        <!-- Agregar una sección para el tipo de cambio -->
+        <div id="tipo-cambio">Cargando tipo de cambio...</div>
+    </header>
+
+    <div class="main-content">
+        <h1>Bienvenido a KawaiPet</h1>
+        
+        <div class="foto-mascota">
+            <h2>¡Sube una foto de tu mascota!</h2>
+            <label for="fileInput" class="custom-file-upload">
+                Seleccionar Foto
+            </label>
+            <input type="file" id="fileInput" accept="image/*" onchange="previewImage(event)">
+            <img id="petPhoto" src="#" alt="Foto de tu mascota">
+        </div>
+
+        <nav>
+            <div class="nav-container">
+                <a href="productos.html" class="nav-icon productos"></a>
+                <a href="reservacionhotel.html" class="nav-icon hotel"></a>
+                <a href="esteticareservaciones.html" class="nav-icon estetica"></a>
+                <a href="citaveterinaria.html" class="nav-icon veterinaria"></a>
+                <a href="seguimientoveterinaria.html" class="nav-icon seguimiento"></a>
+                <a href="articulos.html" class="nav-icon educativos"></a>
+            </div>
+        </nav>
+        
+    </div>
+
+    <footer>
+        <p>Derechos reservados &copy; 2024 KawaiPet</p>
+    </footer>
+
+    <script>
+        function previewImage(event) {
+            const petPhoto = document.getElementById('petPhoto');
+            petPhoto.src = URL.createObjectURL(event.target.files[0]);
+            petPhoto.style.display = 'block';
+        }
+
+        // Función para obtener el tipo de cambio desde la API
+        async function obtenerTipoDeCambio() {
+            try {
+                const response = await fetch('/api/banco-central/tipo-cambio');
+                
+                if (!response.ok) {
+                    throw new Error('No se pudo obtener el tipo de cambio');
+                }
+
+                const data = await response.json();
+                
+                const tipoCambioElement = document.getElementById('tipo-cambio');
+                tipoCambioElement.innerHTML = `Tipo de cambio: ₡${data.tipoDeCambio}`;
+            } catch (error) {
+                console.error('Error al obtener el tipo de cambio:', error);
+            }
+        }
+
+        window.onload = obtenerTipoDeCambio;
+    </script>
+</body>
+</html>

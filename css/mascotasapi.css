@@ -1,0 +1,128 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%; /* Asegura que el body ocupe toda la altura */
+    display: flex;
+    flex-direction: column; /* Organiza en columnas */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #3b2950;
+    padding: 20px; /* Mantengo el padding original del body */
+}
+
+/* Header Styles */
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #e93f76; /* Color principal */
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2em;
+    color: #ffffff;
+}
+
+/* Category Section */
+.categorias {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Distribución como estaba originalmente */
+}
+
+.categoria {
+    background-color: white;
+    width: 30%; /* Mantengo el ancho original */
+    padding: 15px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    text-align: center;
+}
+
+.categoria h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.imagen-categoria {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.articulos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.articulos a {
+    text-decoration: none;
+    color: #e93f76; /* Color para enlaces */
+    font-size: 1em;
+}
+
+.articulos a:hover {
+    color: #e72208; /* Color al pasar el ratón */
+}
+
+.regresar-btn:hover {
+    background-color: #45a049; /* Color de fondo al pasar el ratón */
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #e93f76; /* Color principal */
+    border-radius: 10px;
+    font-size: 0.9em;
+    color: #fff8f8;
+    margin-top: auto; /* Asegura que el footer esté al fondo */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .categoria {
+        width: 45%; /* Mantengo el diseño para pantallas medianas */
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    .categoria {
+        width: 100%; /* Mantengo el diseño para pantallas pequeñas */
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .articulos a {
+        font-size: 0.9em; /* Tamaño de fuente más pequeño en enlaces */
+    }
+}
+
+.logo {
+    width: 80px;
+    height: 50px;
+    margin-right: 18px;
+    position: absolute;
+    left: 15%;
+    transform: translateX(-50%);
+    top: 30px;
+}

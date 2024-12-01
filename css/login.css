@@ -1,0 +1,166 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #3b2950;
+    padding: 20px;
+}
+
+/* Header Styles */
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #e93f76;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    position: relative; /* Añadido para posicionar elementos absolutamente dentro */
+}
+
+.logo {
+    width: 80px; /* Ajusta el tamaño del logo según tus necesidades */
+    height: 50px;
+    margin-right: 18px; /* Espacio entre el logo y el título */
+    position: absolute; /* Cambiado a absoluto */
+    left: 4%; /* Centrado horizontalmente */
+    transform: translateX(-50%); /* Para centrarlo con respecto al 50% */
+    top: 15px; /* Ajusta este valor para mover el logo hacia abajo */
+}
+
+h1 {
+    font-size: 2em;
+    color: #fff;
+}
+
+/* Form Container Styles */
+.form-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Elements */
+h2 {
+    font-size: 1.8em;
+    color: #333;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-size: 1em;
+    color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"] {
+    width: calc(100% - 40px); /* Ajuste de ancho para dejar espacio al botón */
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Nuevo estilo para el campo de la cédula */
+#reg-cedula {
+    width: calc(100% - 40px); /* Ajuste de ancho para el campo de cédula */
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#reg-cedula:focus {
+    border-color: #e93f76; /* Cambiar el borde cuando el campo está en foco */
+}
+
+/* Password Container and Button Styles */
+.password-container {
+    display: flex; /* Usar flexbox para alinear el input y el botón */
+    align-items: center; /* Centrar verticalmente el contenido */
+    width: 100%;
+}
+
+.password-container input {
+    flex: 1; /* Permitir que el input ocupe el espacio disponible */
+    margin-right: 5px; /* Espacio entre el input y el botón */
+    padding-right: 40px; /* Espacio para el botón sin superposición */
+}
+
+.password-container button {
+    background: #e93f76;
+    border: none;
+    color: white;
+    padding: 8px; /* Reducir padding */
+    font-size: 14px; /* Ajustar tamaño de fuente */
+    border-radius: 5px; /* Cambiar el radio para que sea más pequeño */
+    cursor: pointer;
+    height: 40px; /* Ajustar la altura del botón */
+    width: 40px; /* Ancho fijo para el botón */
+}
+
+.password-container button:hover {
+    background-color: #e72208;
+}
+
+/* Button Styles */
+button {
+    padding: 10px 15px;
+    margin-top: 15px;
+    background-color: #e93f76;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e72208;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #e93f76;
+    border-radius: 10px;
+    margin-top: 40px; /* Ajustar el margen superior */
+    font-size: 0.9em;
+    color: #fff;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .form-container {
+        padding: 15px;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.5em;
+    }
+
+    button {
+        font-size: 0.9em;
+    }
+}

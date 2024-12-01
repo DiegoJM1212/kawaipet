@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/tienda.css">
+    <title>Tienda de Mascotas</title>
+</head>
+<body>
+    <header>        
+        <img src="https://i.imgur.com/9NkTv9N.jpg" alt="Logo de KawaiPet" class="logo">
+        <h1>Tienda</h1>
+        <div class="buscador">
+            <input type="text" placeholder="Buscar producto...">
+            <button>Buscar</button>
+        </div>
+    </header>
+
+    <!-- Botón para regresar al inicio -->
+    <a href="inicio.html" class="btn-regresar">Regresar al Inicio
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <section>
+        <!-- Categoría 1: Alimentos -->
+        <h3>Alimentos</h3>
+        <a href="alimentos.html" class="ver-mas">Ver más productos</a>
+        <div class="productos">
+            <div class="producto">
+                <img src="https://i.imgur.com/bTIPDd4.png" alt="whiskas">
+                <h4>Whiskas</h4>
+                <p>Precio: 5000 CRC</p>
+                <p>Alimento seco para gatos adultos 10kg.</p>
+                <div class="metodo-pago">
+                    <button class="comprar-btn" data-id="1">Comprar</button>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/vzcKXiS.png" alt="Dog Chow">
+                <h4>Dog Chow</h4>
+                <p>Precio: 6000 CRC</p>
+                <p>Croquetas pequeñas para perros cachorros.</p>
+                <div class="metodo-pago">
+                    <button class="comprar-btn" data-id="2">Comprar</button>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/d7D5uNs.png" alt="Minino Plus">
+                <h4>Minino Plus</h4>
+                <p>Precio: 7000 CRC</p>
+                <p>Alimento para gato adulto.</p>
+                <div class="metodo-pago">
+                    <button class="comprar-btn" data-id="3">Comprar</button>
+                </div>
+            </div>
+        </div>
+        <!-- Categoría 2: Juguetes y Accesorios -->
+        <h3>Juguetes y Accesorios</h3>
+        <a href="accesorios.html" class="ver-mas">Ver más productos</a>
+        <div class="productos">
+            <div class="producto">
+                <img src="https://i.imgur.com/Pff4qOF.png" alt="chaleco gris">
+                <h4>Chaleco Gris</h4>
+                <p>Precio: 5000 CRC</p>
+                <p>Chaleco gris para perro.</p>
+                <div class="metodo-pago">
+                    <button class="comprar-btn" data-id="4">Comprar</button>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/DqiPWPy.png" alt="Cuerda Multicolor">
+                <h4>Cuerda Multicolor</h4>
+                <p>Precio: 6000 CRC</p>
+                <p>Cuerda para morder para perro.</p>
+                <div class="metodo-pago">
+                    <button class="comprar-btn" data-id="5">Comprar</button>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/IXIJD8N.png" alt="Pelota">
+                <h4>Pelota</h4>
+                <p>Precio: 7000 CRC</p>
+                <p>Pelota con cable para gato.</p>
+                <div class="metodo-pago">
+                    <button class="comprar-btn" data-id="6">Comprar</button>
+                </div>
+            </div>
+        </div>
+        <!-- Categoría 3: Medicamentos -->
+        <h3>Medicamentos</h3>
+        <a href="medicamentos.html" class="ver-mas">Ver más productos</a>
+        <div class="productos">
+            <div class="producto">
+                <img src="https://i.imgur.com/FyHC0c4.png" alt="Advocate Gatos">
+                <h4>Advocate Gatos</h4>
+                <p>Precio: 5000 CRC</p>
+                <p>Tratamiento contra pulgas, gusano del corazón y lombrices intestinales.</p>
+                <div class="metodo-pago">
+                    <button class="comprar-btn" data-id="7">Comprar</button>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/S6hGSzG.png" alt="Naxpet">
+                <h4>Naxpet</h4>
+                <p>Precio: 6000 CRC</p>
+                <p>Analgésico y antiinflamatorio.</p>
+                <div class="metodo-pago">
+                    <button class="comprar-btn" data-id="8">Comprar</button>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/quCn1aH.png" alt="Nexgard">
+                <h4>NEXGARD</h4>
+                <p>Precio: 7000 CRC</p>
+                <p>Tabletas masticables para pulgas y garrapatas en perros.</p>
+                <div class="metodo-pago">
+                    <button class="comprar-btn" data-id="9">Comprar</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios -->
+    <h3>Servicios</h3>
+    <div class="servicios">
+        <h4>Veterinaria</h4>
+        <ul>
+            <li>Consulta General: 15000 CRC</li>
+            <li>Operación: 50000 CRC</li>
+            <li>Vacunación: 20000 CRC</li>
+        </ul>
+
+        <h4>Estética</h4>
+        <ul>
+            <li>Baño: 5000 CRC</li>
+            <li>Corte de Cabello: 7000 CRC</li>
+            <li>Limpieza Dental: 10000 CRC</li>
+            <li>Combo Completo: 15000 CRC</li>
+        </ul>
+
+        <h4>Hotel</h4>
+        <ul>
+            <li>Un día: 7000 CRC</li>
+            <li>Dos días: 12000 CRC</li>
+            <li>Tres días: 15000 CRC</li>
+            <li>Cuatro días: 19000 CRC</li>
+        </ul>
+    </div>
+
+    <footer>
+        <p>&copy; Kawai Pet</p>
+    </footer>
+
+    <script>
+        // Mostrar el contenedor de pago
+        const botonesComprar = document.querySelectorAll('.comprar-btn');
+
+        botonesComprar.forEach(boton => {
+            boton.addEventListener('click', () => {
+                const productoId = boton.getAttribute('data-id');
+                const metodoPagoContainer = document.createElement('div');
+                metodoPagoContainer.innerHTML = `
+                    <h4>Seleccione el método de pago</h4>
+                    <select id="metodo_pago_${productoId}">
+                        <option value="tarjeta">Tarjeta de Crédito</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="efectivo">Efectivo</option>
+                    </select>
+                    <button class="confirmar-pago-btn">Confirmar Pago</button>
+                `;
+                boton.parentNode.appendChild(metodoPagoContainer);
+
+                const confirmarPagoBtn = metodoPagoContainer.querySelector('.confirmar-pago-btn');
+                confirmarPagoBtn.addEventListener('click', () => {
+                    const metodoPago = document.getElementById(`metodo_pago_${productoId}`).value;
+                    if (metodoPago === 'tarjeta') {
+                        window.location.href = '/banco'; // Redirige a la página de pago con tarjeta
+                    } else if (metodoPago === 'paypal') {
+                        window.location.href = '/paypal'; // Redirige a PayPal
+                    
+                        
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+      

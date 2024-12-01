@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña</title>
+    <link rel="stylesheet" href="/css/recuperarpass.css"> <!-- Asegúrate de que esta ruta sea correcta -->
+</head>
+<body>
+    <header>
+        <img src="https://i.imgur.com/9NkTv9N.jpg" alt="Logo de KawaiPet" class="logo">
+
+        <h1>KawaiPet - Recuperar Contraseña</h1>
+    </header>
+
+    <div class="form-container">
+        <div id="message" style="display: none; color: red;"></div>
+
+        <form id="recover-form" action="/recuperar" method="POST" onsubmit="return handleRecover(event)">
+            <h2>Recuperar Contraseña</h2>
+            <label for="userEmail">Usuario:</label>
+            <input type="text" id="userEmail" name="userEmail" required autocomplete="off">
+            
+            <label for="answer1">Respuesta a Pregunta de Seguridad 1:</label>
+            <input type="text" id="answer1" name="securityAnswers[0]" required>
+            
+            <label for="answer2">Respuesta a Pregunta de Seguridad 2:</label>
+            <input type="text" id="answer2" name="securityAnswers[1]" required>
+
+            <label for="answer3">Respuesta a Pregunta de Seguridad 3:</label>
+            <input type="text" id="answer3" name="securityAnswers[2]" required>
+
+            <label for="newPassword">Nueva Contraseña:</label>
+            <input type="password" id="newPassword" name="newPassword" required>
+
+            <button type="submit">Recuperar Contraseña</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 KawaiPet. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        async function handleRecover(event) {
+            event.preventDefault(); // Evitar el envío del formulario
+            const form = document.getElementById('recover-form');
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('http://localhost:3000/recuperar', { // URL absoluta
+                    method: 'POST',
+                    body: formData
+                });
+
+                const messageDiv = document.getElementById('message');
+                
+                if (!response.ok) {
+                    const errorMessage = await response.text();
+                    messageDiv.innerText = errorMessage;
+                    messageDiv.style.display = 'block';
+                } else {
+                    const successMessage = await response.text();
+                    messageDiv.innerText = successMessage;
+                    messageDiv.style.display = 'block';
+                }
+            } catch (error) {
+                document.getElementById('message').innerText = error.message;
+                document.getElementById('message').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+/* esteticareservas.css */
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #3b2950;
+    padding: 20px;
+}
+
+/* Header Styles */
+h1 {
+    text-align: center;
+    padding: 20px;
+    background-color: #e93f76; /* Franja morada */
+    color: white;
+    border-radius: 10px;
+}
+
+/* Form Styles */
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espaciado entre elementos */
+}
+
+label {
+    font-weight: bold;
+}
+
+input, select, textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    background-color: #e93f76; /* Color del botón */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e93f76; /* Color del botón al pasar el ratón */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8em;
+    }
+
+    form {
+        padding: 15px; /* Menos padding en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    button {
+        font-size: 0.9em; /* Tamaño de fuente más pequeño en botones */
+    }
+}
+.logo {
+    width: 80px;
+    height: 50px;
+    margin-right: 18px;
+    position: absolute;
+    left: 15%;
+    transform: translateX(-50%);
+    top: 30px;
+}
+/* Estilo del botón con imagen */
+.btn-regresar {
+    display: inline-block;        /* Bloque en línea para permitir tamaño */
+    background-image: url('https://i.imgur.com/nopEa8h.png'); /* Imagen como fondo */
+    background-size: contain;     /* Ajusta la imagen para que encaje */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center;  /* Centra la imagen dentro del botón */
+    width: 50px;                  /* Ancho del botón */
+    height: 50px;                 /* Alto del botón */
+    border: none;                 /* Sin bordes */
+    border-radius: 50%;           /* Botón circular */
+    cursor: pointer;              /* Cambia el cursor a una mano */
+    transition: transform 0.2s;   /* Transición suave al hacer hover */
+}
+
+/* Efecto hover */
+.btn-regresar:hover {
+    transform: scale(1.1); /* Aumenta ligeramente el tamaño al pasar el ratón */
+}

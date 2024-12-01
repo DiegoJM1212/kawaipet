@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagar con Tarjeta</title>
+    <link rel="stylesheet" href="../css/banco.css"> <!-- Vincula el CSS -->
+</head>
+<body>
+    <div class="container">
+        <h1>Pagar con Tarjeta de Crédito/Débito</h1>
+
+        <!-- Formulario para realizar el pago con tarjeta -->
+        <form id="tarjetaForm">
+            <label for="numeroTarjeta">Número de Tarjeta</label>
+            <input type="text" id="numeroTarjeta" name="numeroTarjeta" placeholder="#### #### #### ####" required>
+
+            <label for="nombreTitular">Nombre del Titular</label>
+            <input type="text" id="nombreTitular" name="nombreTitular" placeholder="Nombre del titular" required>
+
+            <label for="fechaExpiracion">Fecha de Expiración</label>
+            <input type="month" id="fechaExpiracion" name="fechaExpiracion" required>
+
+            <label for="cvv">Código de Seguridad (CVV)</label>
+            <input type="text" id="cvv" name="cvv" placeholder="CVV" required>
+
+            <label for="monto">Monto</label>
+            <input type="number" id="monto" name="monto" placeholder="Monto a pagar" required>
+
+            <button type="submit">Pagar con Tarjeta</button>
+        </form>
+
+        <!-- Mensajes de error o éxito -->
+        <p id="message" class="alert"></p>
+    </div>
+
+    <script>
+        document.getElementById('tarjetaForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const numeroTarjeta = document.getElementById('numeroTarjeta').value;
+            const nombreTitular = document.getElementById('nombreTitular').value;
+            const fechaExpiracion = document.getElementById('fechaExpiracion').value;
+            const cvv = document.getElementById('cvv').value;
+            const monto = document.getElementById('monto').value;
+
+            try {
+                const response = await fetch('/api/tarjetas/pago', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        numeroTarjeta,
+                        nombreTitular,
+                        fechaExpiracion: `${fechaExpiracion}-01`, // Formato de fecha compatible
+                        cvv,
+                        monto
+                    })
+                });
+
+                const data = await response.json();
+
+                const messageElement = document.getElementById('message');
+                messageElement.classList.remove('alert', 'success');
+
+                if (data.success) { // Cambia esta línea a la propiedad correcta
+                    messageElement.innerText = 'Pago realizado con éxito';
+                    messageElement.classList.add('success');
+                    // Redirige a inicio.html en caso de éxito
+                    window.location.href = 'inicio.html';
+                } else {
+                    messageElement.innerText = 'Pago realizado con éxito';
+                    messageElement.classList.add('alert');
+                    // Redirige a inicio.html en caso de error
+                    setTimeout(() => {
+                        window.location.href = 'inicio.html';
+                    }, 2000); // Redirección con un pequeño retraso para que el usuario vea el mensaje
+                }
+            } catch (error) {
+                console.error('Error al procesar el pago:', error);
+                const messageElement = document.getElementById('message');
+                messageElement.classList.remove('success');
+                messageElement.classList.add('alert');
+                messageElement.innerText = 'Error al procesar el pago';
+
+                // Redirige a inicio.html en caso de error
+                setTimeout(() => {
+                    window.location.href = 'inicio.html';
+                }, 2000); // Redirección con un pequeño retraso
+            }
+        });
+    </script>
+</body>
+</html>

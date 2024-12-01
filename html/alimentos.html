@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Categoría</title>
+    <link rel="stylesheet" href="/css/alimentos.css">
+</head>
+<body>
+    <header>
+        <img src="https://i.imgur.com/9NkTv9N.jpg" alt="Logo de KawaiPet" class="logo">
+        <h1>Alimentos</h1> <!-- Cambia según la categoría -->
+        <div class="buscador">
+            <input type="text" placeholder="Buscar productos...">
+            <button>Buscar</button>
+        </div>
+    </header>
+
+    <!-- Botón para regresar al inicio -->
+    <a href="productos.html" class="btn-regresar">Regresar a Tienda
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <section>
+        <h3>Productos de Alimentos</h3> <!-- Cambia según la categoría -->
+        <div class="productos">
+            <!-- Producto 1 -->
+            <div class="producto">
+                <img src="https://i.imgur.com/bTIPDd4.png" alt="whiskas">
+                <h4>Whiskas</h4>
+                <p>Precio: 5000 CRC</p>
+                <p>Alimento seco para gatos adultos 10kg.</p>
+                <button class="comprar-btn" data-id="1">Comprar</button>
+            </div>
+            <!-- Producto 2 -->
+            <div class="producto">
+                <img src="https://i.imgur.com/vzcKXiS.png" alt="Dog Chow">
+                <h4>Dog Chow</h4>
+                <p>Precio: 6000 CRC</p>
+                <p>Croquetas pequeñas para perros cachorros.</p>
+                <button class="comprar-btn" data-id="2">Comprar</button>
+            </div>
+            <!-- Producto 3 -->
+            <div class="producto">
+                <img src="https://i.imgur.com/d7D5uNs.png" alt="Minino Plus">
+                <h4>Minino Plus</h4>
+                <p>Precio: 7000 CRC</p>
+                <p>Alimento para gato adulto.</p>
+                <button class="comprar-btn" data-id="3">Comprar</button>
+            </div>
+            <!-- Producto 4 -->
+            <div class="producto">
+                <img src="https://i.imgur.com/MfraiSQ.png" alt="Pedigree">
+                <h4>Pedigree</h4>
+                <p>Precio: 8000 CRC</p>
+                <p>Croquetas en forma de hueso.</p>
+                <button class="comprar-btn" data-id="4">Comprar</button>
+            </div>
+            <!-- Producto 5 -->
+            <div class="producto">
+                <img src="https://i.imgur.com/WehOuo2.png" alt="Purina Benefu">
+                <h4>Purina Benefu</h4>
+                <p>Precio: 9000 CRC</p>
+                <p>Alimento para Perro Adulto Original 23 Kg.</p>
+                <button class="comprar-btn" data-id="5">Comprar</button>
+            </div>
+            <!-- Producto 6 -->
+            <div class="producto">
+                <img src="https://i.imgur.com/scfQkeA.png" alt="ZuPreem - Pure Fun">
+                <h4>ZuPreem - Pure Fun</h4>
+                <p>Precio: 10000 CRC</p>
+                <p>Alimento para Guacamayas y Aves Grandes.</p>
+                <button class="comprar-btn" data-id="6">Comprar</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; Kawai Pet</p>
+    </footer>
+
+    <script>
+        // Mostrar el contenedor de pago
+        const botonesComprar = document.querySelectorAll('.comprar-btn');
+
+        botonesComprar.forEach(boton => {
+            boton.addEventListener('click', () => {
+                const productoId = boton.getAttribute('data-id');
+                const metodoPagoContainer = document.createElement('div');
+                metodoPagoContainer.innerHTML = `
+                    <h4>Seleccione el método de pago</h4>
+                    <select id="metodo_pago_${productoId}">
+                        <option value="tarjeta">Tarjeta de Crédito</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="efectivo">Efectivo</option>
+                    </select>
+                    <button class="confirmar-pago-btn">Confirmar Pago</button>
+                `;
+                boton.parentNode.appendChild(metodoPagoContainer);
+
+                const confirmarPagoBtn = metodoPagoContainer.querySelector('.confirmar-pago-btn');
+                confirmarPagoBtn.addEventListener('click', () => {
+                    const metodoPago = document.getElementById(`metodo_pago_${productoId}`).value;
+                    if (metodoPago === 'tarjeta') {
+                        window.location.href = '/banco'; // Redirige a la página de pago con tarjeta
+                    } else if (metodoPago === 'paypal') {
+                        window.location.href = '/paypal'; // Redirige a PayPal
+                    } else if (metodoPago === 'efectivo') {
+                        // Puedes agregar aquí una acción relacionada con pago en efectivo.
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

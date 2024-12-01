@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de Mascota</title>
+    <link rel="stylesheet" href="/css/seguimientomascotas.css">
+</head>
+<body>
+    <img src="https://i.imgur.com/9NkTv9N.jpg" alt="Logo de KawaiPet" class="logo">
+
+    <h1>Detalles Mascota</h1>
+ 
+    <!-- Botón para regresar al inicio -->
+    <a href="inicio.html" class="btn-regresar">Regresar al Inicio
+        <i class="fas fa-arrow-left"></i>
+    </a>
+        
+    <div class="informacion-mascota">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" value="{{detalles.nombre}}" readonly>
+
+        <label for="peso">Peso (kg):</label>
+        <input type="text" id="peso" name="peso" value="{{detalles.peso}}" readonly>
+
+        <label for="edad">Edad (años):</label>
+        <input type="text" id="edad" name="edad" value="{{detalles.edad}}" readonly>
+    </div>
+
+    <h2>Seguimiento Veterinario</h2>
+    {{#if detalles.seguimiento.length}} <!-- Verifica si hay elementos en el array -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Medicación/Inyecciones</th>
+                <th>Dosis</th>
+                <th>Frecuencia</th>
+                <th>Fecha</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Itera sobre los datos de seguimiento -->
+            {{#each detalles.seguimiento}}
+            <tr>
+                <td>{{this.medicacion}}</td>
+                <td>{{this.dosis}}</td>
+                <td>{{this.frecuencia}}</td>
+                <td>{{this.fecha}}</td>
+                <td>{{this.observaciones}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{else}}
+        <p>No se han registrado seguimientos veterinarios para esta mascota.</p>
+    {{/if}}
+</body>
+</html>

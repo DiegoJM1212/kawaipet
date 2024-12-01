@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Categoría</title>
+    <link rel="stylesheet" href="/css/juguetes.css">
+</head>
+<body>
+    <header>
+        <img src="https://i.imgur.com/9NkTv9N.jpg" alt="Logo de KawaiPet" class="logo">
+        <h1>Accesorios</h1> <!-- Cambia según la categoría -->
+        <div class="buscador">
+            <input type="text" placeholder="Buscar productos...">
+            <button>Buscar</button>
+        </div>
+    </header>
+    
+    <!-- Botón para regresar al inicio -->
+    <a href="productos.html" class="btn-regresar">Regresar a Tienda
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <section>
+        <h3>Juguetes y Accesorios</h3> <!-- Cambia según la categoría -->
+        <div class="productos">
+            <div class="producto">
+                <img src="https://i.imgur.com/Pff4qOF.png" alt="Producto 1">
+                <h4>Chaleco Gris</h4>
+                <p>Precio: 5000 CRC</p>
+                <p>Chaleco gris para perro</p>
+                <button class="comprar-btn" data-id="1">Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/DqiPWPy.png" alt="Producto 2">
+                <h4>Cuerda Multicolor</h4>
+                <p>Precio: 6000 CRC</p>
+                <p>Cuerda para morder para perro</p>
+                <button class="comprar-btn" data-id="2">Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/IXIJD8N.png" alt="Producto 3">
+                <h4>Pelota</h4>
+                <p>Precio: 7000 CRC</p>
+                <p>Pelota con cable para gato</p>
+                <button class="comprar-btn" data-id="3">Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/PeQ3wiw.png" alt="Producto 4">
+                <h4>Pelota</h4>
+                <p>Precio: 8000 CRC</p>
+                <p>Pelota de goma con silbato</p>
+                <button class="comprar-btn" data-id="4">Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/cq0MAIA.png" alt="Producto 5">
+                <h4>Percha para Pájaro</h4>
+                <p>Precio: 9000 CRC</p>
+                <p>Soporte para loro.</p>
+                <button class="comprar-btn" data-id="5">Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/WcjVik8.png" alt="Producto 6">
+                <h4>Raton de Peluche</h4>
+                <p>Precio: 10000 CRC</p>
+                <p>Raton de juguete para gato</p>
+                <button class="comprar-btn" data-id="6">Comprar</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; Kawai Pet</p>
+    </footer>
+
+    <script>
+        // Mostrar el contenedor de pago
+        const botonesComprar = document.querySelectorAll('.comprar-btn');
+
+        botonesComprar.forEach(boton => {
+            boton.addEventListener('click', () => {
+                const productoId = boton.getAttribute('data-id');
+                const metodoPagoContainer = document.createElement('div');
+                metodoPagoContainer.innerHTML = `
+                    <h4>Seleccione el método de pago</h4>
+                    <select id="metodo_pago_${productoId}">
+                        <option value="tarjeta">Tarjeta de Crédito</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="efectivo">Efectivo</option>
+                    </select>
+                    <button class="confirmar-pago-btn">Confirmar Pago</button>
+                `;
+                boton.parentNode.appendChild(metodoPagoContainer);
+
+                const confirmarPagoBtn = metodoPagoContainer.querySelector('.confirmar-pago-btn');
+                confirmarPagoBtn.addEventListener('click', () => {
+                    const metodoPago = document.getElementById(`metodo_pago_${productoId}`).value;
+                    if (metodoPago === 'tarjeta') {
+                        window.location.href = '/banco'; // Redirige a la página de pago con tarjeta
+                    } else if (metodoPago === 'paypal') {
+                        window.location.href = '/paypal'; // Redirige a PayPal
+                    } else if (metodoPago === 'efectivo') {
+                        // Puedes agregar aquí una acción relacionada con pago en efectivo.
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

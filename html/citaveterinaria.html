@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Cita Veterinaria</title>
+    <link rel="stylesheet" href="/css/agendar-citaveterinaria.css">
+    
+</head>
+<body>
+    <header>
+        <img src="https://i.imgur.com/9NkTv9N.jpg" alt="Logo de KawaiPet" class="logo">
+
+        <h1>Cita Veterinaria</h1>
+    </header>
+
+    <!-- Botón para regresar al inicio -->
+    <a href="inicio.html" class="btn-regresar">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    
+    <section class="form-container">
+        <h2>Información de la Cita</h2>
+        <form id="citaForm"> 
+            <label for="nombrePropietario">Nombre del Propietario:</label>
+            <input type="text" id="nombrePropietario" name="nombrePropietario" required>
+
+            <label for="nombreMascota">Nombre de la Mascota:</label>
+            <input type="text" id="nombreMascota" name="nombreMascota" required>
+
+            <label for="veterinario">Seleccionar Médico Veterinario:</label>
+            <select id="veterinario" name="veterinario" required>
+                <option value="">Seleccione un médico</option>
+            </select>
+
+            <label for="seguro">Seleccionar Seguro de Mascota:</label>
+            <select id="seguro" name="seguro" required>
+                <option value="">Seleccione un seguro</option>
+            </select>
+
+            <label for="consulta">Consulta:</label>
+            <textarea id="consulta" name="consulta" rows="4" required></textarea>
+
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" required>
+
+            <label for="hora">Hora:</label>
+            <input type="time" id="hora" name="hora" required>
+
+            <!-- Selección del método de pago -->
+            <label for="metodoPago">Método de Pago:</label>
+            <select id="metodoPago" name="metodoPago" required>
+                <option value="tarjeta">Tarjeta de Crédito/Débito</option>
+                <option value="paypal">PayPal</option>
+            </select>
+
+            <button type="button" class="check-availability">Comprobar Disponibilidad</button>
+            <button type="submit">Enviar</button>
+
+            <!-- Mensaje de disponibilidad -->
+            <p id="availabilityMessage" style="color: red;"></p>
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2024 Veterinaria Kawai Pet</p>
+    </footer>
+
+    <script>
+        // Llamar a la API de veterinarios y seguros al cargar la página y rellenar los selects
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Cargar veterinarios
+            try {
+                const responseVeterinarios = await fetch('/veterinarios');
+                const veterinarios = await responseVeterinarios.json();
+
+                const selectVeterinario = document.getElementById('veterinario');
+                veterinarios.forEach(vet => {
+                    const option = document.createElement('option');
+                    option.value = vet.id; // Usa el campo correspondiente de la base de datos como valor
+                    option.textContent = vet.nombre; // Usa el nombre del veterinario
+                    selectVeterinario.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error al cargar los veterinarios:', error);
+                alert('Error al cargar la lista de veterinarios.');
+            }
+
+            // Cargar seguros
+            try {
+                const responseSeguros = await fetch('http://localhost:3003/seguros');
+                const seguros = await responseSeguros.json();
+
+                const selectSeguro = document.getElementById('seguro');
+                seguros.forEach(seguro => {
+                    const option = document.createElement('option');
+                    option.value = seguro.id; // Usa el ID como valor
+                    option.textContent = seguro.nombre; // Usa el nombre del seguro
+                    selectSeguro.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error al cargar los seguros:', error);
+                alert('Error al cargar la lista de seguros.');
+            }
+        });
+
+        document.querySelector('.check-availability').addEventListener('click', async () => {
+            const fecha = document.getElementById('fecha').value;
+            const hora = document.getElementById('hora').value;
+
+            if (!fecha || !hora) {
+                document.getElementById('availabilityMessage').innerText = 'Por favor, selecciona una fecha y hora.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/citas/comprobar-disponibilidad', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ fecha, hora })
+                });
+
+                const data = await response.json();
+
+                if (data.available) {
+                    document.getElementById('availabilityMessage').innerText = 'La cita está disponible.';
+                } else {
+                    document.getElementById('availabilityMessage').innerText = 'La hora no está disponible. Por favor, selecciona otra.';
+                }
+            } catch (error) {
+                console.error('Error al comprobar disponibilidad:', error);
+                document.getElementById('availabilityMessage').innerText = '';
+            }
+        });
+
+        document.getElementById('citaForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const metodoPago = document.getElementById('metodoPago').value;
+
+    if (metodoPago === 'tarjeta') {
+        window.location.href = '/banco'; // Página de pago con tarjeta
+    } else if (metodoPago === 'paypal') {
+        window.location.href = '/paypal'; // Página de pago con PayPal
+    }
+});
+
+    </script>
+</body>
+</html>

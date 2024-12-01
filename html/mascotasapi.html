@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Mascotas en Adopción</title>
+    <link rel="stylesheet" href="css/mascotasapi.css">
+</head>
+<body>
+    <header>
+        <img src="https://i.imgur.com/9NkTv9N.jpg" alt="Logo de KawaiPet" class="logo">
+
+        <h1>Lista de Mascotas en Adopción</h1>
+        <a href="inicio.html" class="btn-regresar">Regresar al Inicio
+            <i class="fas fa-arrow-left"></i>
+
+        </a>
+    </header>
+
+    <div class="container mx-auto p-4">
+        <div id="error-message" class="error-message" style="display: none;"></div>
+        <div class="categorias">
+            <div class="categoria">
+                <h2>Elige una mascota para adopción</h2>
+                <select id="mascotasSelect" class="form-control">
+                    <option value="" disabled selected>Selecciona una mascota</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="mascotaSeleccionada" class="mascota-seleccionada">
+            <!-- Aquí se mostrará la información de la mascota seleccionada -->
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        async function cargarMascotas() {
+            try {
+                const response = await fetch('/api/mascotas');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const mascotas = await response.json();
+
+                const select = document.getElementById('mascotasSelect');
+
+                mascotas.forEach(mascota => {
+                    const option = document.createElement('option');
+                    option.value = mascota.id;
+                    option.textContent = `${mascota.nombre} (${mascota.tipo})`;
+                    select.appendChild(option);
+                });
+
+                select.addEventListener('change', (event) => {
+                    const mascotaId = event.target.value;
+                    mostrarMascotaSeleccionada(mascotaId, mascotas);
+                });
+
+            } catch (error) {
+                console.error('Error al cargar las mascotas:', error);
+                mostrarError('Error al cargar las mascotas. Por favor, intente de nuevo más tarde.');
+            }
+        }
+
+        function mostrarMascotaSeleccionada(mascotaId, mascotas) {
+            const mascota = mascotas.find(m => m.id === parseInt(mascotaId));
+            const contenedor = document.getElementById('mascotaSeleccionada');
+
+            if (mascota) {
+                contenedor.innerHTML = `
+                    <h3>${mascota.nombre}</h3>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <img src="${mascota.foto}" alt="${mascota.nombre}" class="w-full md:w-1/2 h-64 object-cover rounded-lg">
+                        <div class="flex flex-col justify-between">
+                            <div>
+                                <p><strong>Tipo:</strong> ${mascota.tipo}</p>
+                                <p><strong>Estado:</strong> ${mascota.disponibilidad ? 'Disponible para adopción' : 'No disponible'}</p>
+                            </div>
+                            <button class="adoptar-btn" ${mascota.disponibilidad ? '' : 'disabled'}>${mascota.disponibilidad ? 'Adoptar' : 'No disponible'}</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                contenedor.innerHTML = '<p>Selecciona una mascota para ver más detalles.</p>';
+            }
+        }
+
+        function mostrarError(mensaje) {
+            const errorElement = document.getElementById('error-message');
+            errorElement.textContent = mensaje;
+            errorElement.style.display = 'block';
+        }
+
+        window.onload = cargarMascotas;
+    </script>
+</body>
+</html>

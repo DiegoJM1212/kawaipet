@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citas Estéticas para Mascotas</title>
+    <link rel="stylesheet" href="/css/esteticareservas.css">
+</head>
+<body>
+    <img src="https://i.imgur.com/9NkTv9N.jpg" alt="Logo de KawaiPet" class="logo">
+
+    <h1>Cita Estética para Mascotas</h1>
+
+    <!-- Botón para regresar al inicio -->
+    <a href="inicio.html" class="btn-regresar">Regresar al Inicio
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <form action="/cita-estetica/agendar" method="POST" id="citaEsteticaForm">
+        <!-- Información del propietario -->
+        <label for="nombre_propietario">Nombre del propietario:</label>
+        <input type="text" id="nombre_propietario" name="nombre_propietario" required><br><br>
+        
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" id="telefono" name="telefono" required><br><br>
+        
+        <!-- Información de la mascota -->
+        <label for="nombre_mascota">Nombre de la mascota:</label>
+        <input type="text" id="nombre_mascota" name="nombre_mascota" required><br><br>
+        
+        <!-- Servicios -->
+        <label for="servicios">Servicios:</label>
+        <select id="servicios" name="servicios" required>
+            <option value="bano">Baño</option>
+            <option value="corte_pelo">Corte de pelo</option>
+            <option value="limpieza_dental">Limpieza dental</option>
+            <option value="combo_completo">Combo completo</option>
+        </select><br><br>
+
+        <!-- Método de pago -->
+        <label for="metodo_pago">Método de Pago:</label>
+        <select id="metodo_pago" name="metodo_pago" required>
+            <option value="tarjeta">Tarjeta de Crédito</option>
+            <option value="paypal">PayPal</option>
+
+        </select><br><br>
+        
+        <!-- Fecha y hora -->
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha" required><br><br>
+        
+        <label for="hora">Hora:</label>
+        <input type="time" id="hora" name="hora" required><br><br>
+
+        <!-- Comentarios/Solicitudes especiales -->
+        <label for="comentarios">Comentarios/Solicitudes especiales:</label>
+        <textarea id="comentarios" name="comentarios"></textarea><br><br>
+        
+        <!-- Botones -->
+        <button type="button" id="checkAvailabilityBtn">Comprobar disponibilidad</button><br><br>
+        <button type="submit">Programar cita</button>
+    </form>
+
+    <script>
+        // Función para comprobar la disponibilidad
+        document.getElementById('checkAvailabilityBtn').addEventListener('click', async () => {
+            const fecha = document.getElementById('fecha').value;
+            const hora = document.getElementById('hora').value;
+
+            if (!fecha || !hora) {
+                alert('Por favor, selecciona la fecha y la hora.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/cita-estetica/comprobar-disponibilidad', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ fecha, hora })
+                });
+
+                const data = await response.json();
+
+                if (data.available) {
+                    alert('Las fechas están disponibles.');
+                } else {
+                    alert('Las fechas no están disponibles. Por favor, selecciona otras.');
+                }
+            } catch (error) {
+                console.error('Error al comprobar disponibilidad:', error);
+                alert('Error al comprobar disponibilidad.');
+            }
+        });
+
+        // Redirigir al pago dependiendo del método seleccionado
+        document.getElementById('citaEsteticaForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evitar que el formulario se envíe por defecto
+
+            const metodoPago = document.getElementById('metodo_pago').value;
+
+            // Procesar pago según el método seleccionado
+            if (metodoPago === 'tarjeta') {
+                // Aquí puedes redirigir al usuario a la página de pago con tarjeta (Stripe o similar)
+                window.location.href = '/banco'; // Página de pago con tarjeta
+    } else if (metodoPago === 'paypal') {
+        window.location.href = '/paypal'; // Página de pago con PayPal
+            } else {
+                // Si es "efectivo", no redirigir, simplemente enviar el formulario
+                this.submit();
+            }
+        });
+    </script>
+</body>
+</html>
